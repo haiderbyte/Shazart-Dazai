@@ -27,8 +27,25 @@ export async function directChat(config: AIProviderConfig, message: string, pers
 }
 
 export async function directGenerateQuote(config: AIProviderConfig, topic: string): Promise<Partial<Quote>> {
-  const prompt = `اكتب شذرة أدبية أصلية مستوحاة من موضوع: ${topic}. أعد JSON فقط بهذا الشكل: {"textAr":"...","textJp":"","source":"اسم عمل دازاي مناسب","chapter":"فصل","reflection":"تأمل قصير"}. لا تنسب نصًا مختلقًا إلى دازاي؛ اكتب أنها مستوحاة.`;
+  const prompt = `اكتب عبارة أدبية أصلية قصيرة وذات معنى، مستوحاة من موضوع: ${topic}.
+شروط إلزامية: textAr يجب أن يكون حكمة أو شذرة من جملة واحدة أو جملتين فقط، بين 12 و180 حرفًا عربيًا، وليس قصة أو حوارًا أو وصفًا لمشهد. لا تبدأ بمقدمة مثل "إليك" ولا تشرح العبارة ولا تكرر الموضوع. اجعلها مكثفة وقابلة للاقتباس.
+أعد JSON فقط بهذا الشكل: {"textAr":"العبارة القصيرة","textJp":"","source":"شذرة أصلية مستوحاة من أدب دازاي","chapter":"شذرة","reflection":"تأمل من جملة قصيرة"}. لا تنسب نصًا مختلقًا إلى دازاي الحقيقي.`;
   const r = await directChat(config, prompt, 'دازاي', []);
   const raw = r.reply.replace(/```json|```/g, '').trim();
-  try { return JSON.parse(raw); } catch { const m = raw.match(/\{[\s\S]*\}/); if (m) return JSON.parse(m[0]); throw new Error('رد المزود ليس JSON صالحًا.'); }
+  let parsed: Partial<Quote>;
+  try { parsed = JSON.parse(raw); } catch { const m = raw.match(/\{[\s\S]*\}/); if (m) parsed = JSON.parse(m[0]); else throw new Error('رد المزود ليس JSON صالحًا.'); }
+
+  // Defensive cleanup: some models ignore the length instruction. Keep the
+  // first meaningful one or two sentences instead of displaying a story.
+  const clean = String(parsed.textAr || '')
+    .replace(/^(إليك|هذه هي|بالطبع|العبارة هي)[:：،,\s-]*/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const sentences = clean.match(/[^.!؟؛。]+[.!؟؛。]?/g)?.map((x) => x.trim()).filter(Boolean) || [];
+  const compact = sentences.slice(0, 2).join(' ').trim();
+  parsed.textAr = (compact || clean).slice(0, 180).trim();
+  parsed.reflection = String(parsed.reflection || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+  parsed.source = parsed.source || 'شذرة أصلية مستوحاة من أدب دازاي';
+  parsed.chapter = parsed.chapter || 'شذرة';
+  return parsed;
 }
