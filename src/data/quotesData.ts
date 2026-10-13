@@ -75,6 +75,15 @@ export const PERSONAS: PersonaInfo[] = [
     quoteSample: 'كنت أضحكهم حتى الموت فقط لأنني كنت أرتجف خوفاً من أن يلمح أحدهم حقيقة جزعي.',
     avatarSeed: 'yozo_mask',
   },
+  {
+    id: 'narcissist',
+    title: 'النرجسي المتأمل',
+    kanji: '自己愛の影',
+    subtitle: 'غرور هشّ خلف قناع دازاي',
+    description: 'شخصية واثقة ومغرورة ظاهريًا، ترى نفسها استثنائية، لكنها تكشف في العمق خوفًا هشًا من أن تكون عادية أو منسية.',
+    quoteSample: 'أنا لا أبحث عن إعجابكم؛ يكفيني أن تعرفوا أنكم لم تقتربوا من مستواي.',
+    avatarSeed: 'narcissist_shadow',
+  },
 ];
 
 export const INITIAL_QUOTES: Quote[] = [

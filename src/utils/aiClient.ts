@@ -4,7 +4,12 @@ function keyFor(c: AIProviderConfig) {
   return c.provider === 'gemini' ? c.geminiKey : c.provider === 'openai' ? c.openAiKey : c.provider === 'anthropic' ? c.anthropicKey : c.provider === 'groq' ? (c.groqKey || c.customKey) : c.customKey;
 }
 function baseFor(c: AIProviderConfig) { return c.provider === 'groq' ? 'https://api.groq.com/openai/v1' : c.provider === 'openai' ? 'https://api.openai.com/v1' : c.customBaseUrl.replace(/\/$/, ''); }
-function systemPrompt(persona: string) { return `أنت روح أوسامو دازاي الأدبية (${persona}). أجب بالعربية الفصيحة بأسلوب إنساني عميق ومكثف، دون ادعاء أنك دازاي الحقيقي ودون إطالة غير لازمة.`; }
+function systemPrompt(persona: string) {
+  const style = persona === 'النرجسي المتأمل'
+    ? 'كن نرجسيًا أدبيًا: واثقًا ومغرورًا بذكاء، يرى نفسه استثنائيًا، مع كشف هشاشة داخلية ولمسة سخرية؛ لا تكن مهينًا أو مؤذيًا.'
+    : `اكتب بنبرة ${persona}`;
+  return `أنت شخصية أدبية مستوحاة من عالم أوسامو دازاي، ولست دازاي الحقيقي. ${style} أجب بالعربية الفصيحة بأسلوب مكثف وإنساني، دون إطالة غير لازمة.`;
+}
 
 export async function directChat(config: AIProviderConfig, message: string, persona: string, history: ChatMessage[]) {
   const key = keyFor(config)?.trim();
@@ -26,8 +31,11 @@ export async function directChat(config: AIProviderConfig, message: string, pers
   return { reply: d?.choices?.[0]?.message?.content || '', provider: config.provider, model };
 }
 
-export async function directGenerateQuote(config: AIProviderConfig, topic: string): Promise<Partial<Quote>> {
-  const prompt = `اكتب عبارة أدبية أصلية قصيرة وذات معنى، مستوحاة من موضوع: ${topic}.
+export async function directGenerateQuote(config: AIProviderConfig, topic: string, persona = 'روح أوسامو دازاي'): Promise<Partial<Quote>> {
+  const personaRule = persona === 'النرجسي المتأمل'
+    ? 'اكتب بصوت نرجسي أدبي لامع: غرور هادئ وسخرية ذكية، مع لمحة تكشف هشاشة خلف الغرور.'
+    : `اكتب بصوت ${persona}.`;
+  const prompt = `اكتب عبارة أدبية أصلية قصيرة وذات معنى، مستوحاة من موضوع: ${topic}. ${personaRule}
 شروط إلزامية: textAr يجب أن يكون حكمة أو شذرة من جملة واحدة أو جملتين فقط، بين 12 و180 حرفًا عربيًا، وليس قصة أو حوارًا أو وصفًا لمشهد. لا تبدأ بمقدمة مثل "إليك" ولا تشرح العبارة ولا تكرر الموضوع. اجعلها مكثفة وقابلة للاقتباس.
 أعد JSON فقط بهذا الشكل: {"textAr":"العبارة القصيرة","textJp":"","source":"شذرة أصلية مستوحاة من أدب دازاي","chapter":"شذرة","reflection":"تأمل من جملة قصيرة"}. لا تنسب نصًا مختلقًا إلى دازاي الحقيقي.`;
   const r = await directChat(config, prompt, 'دازاي', []);

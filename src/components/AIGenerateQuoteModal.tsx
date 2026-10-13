@@ -1,6 +1,6 @@
 import { directGenerateQuote } from '../utils/aiClient';
 import React, { useState } from 'react';
-import { Quote, AIProviderConfig } from '../types';
+import { Quote, AIProviderConfig, PersonaType } from '../types';
 import {
   X,
   Sparkles,
@@ -21,6 +21,7 @@ import {
   getRandomDazaiTheme,
   getRandomCuratedSpark,
 } from '../data/dazaiLiteraryUniverse';
+import { PERSONAS } from '../data/quotesData';
 import { cleanQuoteText } from '../utils/dailyQuoteManager';
 import {
   isQuotePermanentlySaved,
@@ -42,6 +43,7 @@ export const AIGenerateQuoteModal: React.FC<AIGenerateQuoteModalProps> = ({
   theme,
 }) => {
   const [topic, setTopic] = useState('');
+  const [selectedPersona, setSelectedPersona] = useState<PersonaType>('dazai');
   const [selectedBookId, setSelectedBookId] = useState<string>('all');
   const [currentBookName, setCurrentBookName] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -107,7 +109,8 @@ export const AIGenerateQuoteModal: React.FC<AIGenerateQuoteModalProps> = ({
     setIsPermanentlySaved(false);
 
     try {
-      const data = { quote: await directGenerateQuote(aiConfig, finalTopic) };
+      const personaName = PERSONAS.find((p) => p.id === selectedPersona)?.title || 'روح أوسامو دازاي';
+      const data = { quote: await directGenerateQuote(aiConfig, finalTopic, personaName) };
       if (data.quote) {
         audioManager.playSingingBowl();
         const cleanedQuote: Quote = {
@@ -333,6 +336,35 @@ export const AIGenerateQuoteModal: React.FC<AIGenerateQuoteModalProps> = ({
         ) : (
           /* 2. Topic Selection & Generation Form */
           <>
+            {/* Persona Selector */}
+            <div className="mb-3.5">
+              <label className="block text-[11px] font-amiri font-bold mb-1.5 opacity-80">
+                اختر الشخصية التي ستكتب العبارة:
+              </label>
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-thin">
+                {PERSONAS.map((persona) => (
+                  <button
+                    key={persona.id}
+                    type="button"
+                    onClick={() => setSelectedPersona(persona.id)}
+                    className={`text-xs px-3 py-1.5 rounded-lg font-amiri whitespace-nowrap transition-colors border flex items-center gap-1.5 ${
+                      selectedPersona === persona.id
+                        ? theme === 'dark'
+                          ? 'bg-[#8B3A3A] border-[#8B3A3A] text-white'
+                          : 'bg-[#7A3838] border-[#7A3838] text-white'
+                        : 'border-inherit/20 opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <span>{persona.kanji.slice(0, 1)}</span>
+                    <span>{persona.title}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="mt-1 text-[10px] font-amiri opacity-55">
+                {PERSONAS.find((p) => p.id === selectedPersona)?.description}
+              </p>
+            </div>
+
             {/* Book Selector Tabs */}
             <div className="mb-3.5">
               <label className="block text-[11px] font-amiri font-bold mb-1.5 opacity-80 flex items-center gap-1.5">
