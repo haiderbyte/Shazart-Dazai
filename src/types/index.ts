@@ -40,7 +40,7 @@ export interface DailyAIQuoteRecord {
 
 export type AIProvider = 'gemini' | 'openai' | 'anthropic' | 'groq' | 'custom';
 
-export type PersonaType = 'dazai' | 'friend' | 'sensei' | 'yozo' | 'narcissist';
+export type PersonaType = 'dazai' | 'friend' | 'sensei' | 'yozo' | 'narcissist' | 'ashPhilosopher';
 
 export interface PersonaInfo {
   id: PersonaType;

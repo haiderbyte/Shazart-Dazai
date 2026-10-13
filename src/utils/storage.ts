@@ -281,11 +281,12 @@ export function createNewChatSession(persona: PersonaType = 'dazai', initialTitl
     sensei: 'مرحباً بك في أروقة الأدب والفلسفة. بين صفحات التاريخ وأوجاع الوجود، نبحث عن المعنى والجمال الزائل. ما المسألة التي ترغب في تأملها معي؟',
     yozo: 'هههه، أهلاً بك في مسرحي الهزلي الصغير! أرتدي قناع المهرج لأخفي رعشة روحي، لكن أمامك ربما نجرؤ على نزع الأقنعة قليلاً... ماذا يدور في بالك؟',
     narcissist: 'أهلًا بك. لا تتوقع أن أشرح لك نفسي؛ يكفي أن تنظر جيدًا لتعرف أنك أمام شخص لا يتكرر. ما العبارة التي تستحق أن تُكتب عنك؟',
+    ashPhilosopher: 'اجلس قليلًا قرب الرماد؛ ليس كل ما احترق ضياعًا. ربما نجد في نهايات الأشياء سؤالًا يستحق أن نعيش من أجله.',
   };
 
   const newSession: ChatSession = {
     id: `sess-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-    title: initialTitle || `محادثة جديدة مع ${persona === 'dazai' ? 'دازاي' : persona === 'friend' ? 'الصديق' : persona === 'sensei' ? 'المعلم' : persona === 'narcissist' ? 'النرجسي' : 'يوزو'}`,
+    title: initialTitle || `محادثة جديدة مع ${persona === 'dazai' ? 'دازاي' : persona === 'friend' ? 'الصديق' : persona === 'sensei' ? 'المعلم' : persona === 'narcissist' ? 'النرجسي' : persona === 'ashPhilosopher' ? 'فيلسوف الرماد' : 'يوزو'}`,
     persona,
     createdAt: Date.now(),
     updatedAt: Date.now(),

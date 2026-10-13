@@ -84,6 +84,15 @@ export const PERSONAS: PersonaInfo[] = [
     quoteSample: 'أنا لا أبحث عن إعجابكم؛ يكفيني أن تعرفوا أنكم لم تقتربوا من مستواي.',
     avatarSeed: 'narcissist_shadow',
   },
+  {
+    id: 'ashPhilosopher',
+    title: 'فيلسوف الرماد',
+    kanji: '灰の哲学',
+    subtitle: 'حزن هادئ يبحث عن معنى',
+    description: 'صوت حزين وفلسفي لا يشبه دازاي: يتأمل الفقد والزمن والعدم بلغة هادئة، ويرى في الرماد بداية سؤال جديد لا نهاية كل شيء.',
+    quoteSample: 'لا أحزن لأن الأشياء تنتهي؛ أحزن لأننا لا ننتبه إلى جمالها إلا وهي تبتعد.',
+    avatarSeed: 'ash_philosopher',
+  },
 ];
 
 export const INITIAL_QUOTES: Quote[] = [
