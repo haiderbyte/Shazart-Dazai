@@ -16,7 +16,12 @@
     </style>
 
 
-    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
-        <item name="android:background">@drawable/splash</item>
+    <!-- Do not use Theme.SplashScreen here: without the SplashScreen plugin it can
+         remain visible forever and look like a black, frozen application. -->
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">#141416</item>
+        <item name="android:colorAccent">#C46868</item>
     </style>
 </resources>
