@@ -33,6 +33,22 @@
   text-rendering: optimizeLegibility;
 }
 
+/* Keep long Arabic/Latin AI responses visible inside narrow phone bubbles. */
+textarea,
+p,
+h1,
+h2,
+h3,
+h4,
+button,
+span {
+  overflow-wrap: anywhere;
+}
+
+.overflow-y-auto {
+  scrollbar-gutter: stable;
+}
+
 /* Subtle Ink Texture & Paper Wash */
 .bg-ink-texture {
   background-image: radial-gradient(circle at 50% 0%, rgba(139, 58, 58, 0.04) 0%, transparent 60%),

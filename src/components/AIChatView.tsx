@@ -348,7 +348,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-7.5rem)] w-full max-w-5xl xl:max-w-6xl mx-auto px-2 sm:px-4 transition-all relative">
+    <div className="flex flex-col min-h-0 h-[calc(100vh-7.5rem)] w-full max-w-5xl xl:max-w-6xl mx-auto px-2 sm:px-4 transition-all relative">
       {/* 1. FIXED TOP HEADER BAR WITH CLASSICAL PERSONA DROPDOWN MENU (شريط علوي ثابت لا يختفي أثناء التمرير) */}
       <div
         className={`sticky top-0 z-40 p-2.5 sm:p-3.5 rounded-2xl border mb-3 transition-colors shadow-lg backdrop-blur-md ${
@@ -640,7 +640,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({
 
       {/* 3. Rich, Atmospheric Messages Canvas */}
       <div
-        className={`flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 rounded-2xl border space-y-6 sm:space-y-7 transition-colors shadow-inner backdrop-blur-sm relative ${
+        className={`flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-6 md:p-8 rounded-2xl border space-y-6 sm:space-y-7 transition-colors shadow-inner backdrop-blur-sm relative ${
           theme === 'dark'
             ? 'bg-[#131317]/90 border-[#262633] bg-ink-texture'
             : 'bg-[#F6EFE3]/90 border-[#E2D5C0] bg-parchment-texture'
@@ -700,7 +700,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({
 
                 {/* Message Bubble */}
                 <div
-                  className={`w-full max-w-[94%] sm:max-w-[88%] md:max-w-[82%] rounded-2xl p-4 sm:p-6 text-base border shadow-sm transition-all relative ${
+                  className={`w-full min-w-0 max-w-[94%] sm:max-w-[88%] md:max-w-[82%] rounded-2xl p-4 sm:p-6 text-base border shadow-sm transition-all relative ${
                     isUser
                       ? theme === 'dark'
                         ? 'bg-[#8B3A3A]/20 border-[#8B3A3A]/40 text-[#FAF6EE] rounded-tl-sm shadow-md'
@@ -711,7 +711,7 @@ export const AIChatView: React.FC<AIChatViewProps> = ({
                   }`}
                 >
                   {/* Message Content */}
-                  <div className="font-amiri text-base sm:text-lg lg:text-[19px] leading-[1.9] sm:leading-[2.1] tracking-wide whitespace-pre-wrap select-text">
+                  <div className="font-amiri text-base sm:text-lg lg:text-[19px] leading-[1.9] sm:leading-[2.1] tracking-wide whitespace-pre-wrap break-words [overflow-wrap:anywhere] select-text">
                     {msg.content}
                   </div>
 
