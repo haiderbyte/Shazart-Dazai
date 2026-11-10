@@ -1,9 +1,6 @@
 # 🍂 شذرات دازاي | شمس الغروب ومذكرات العزلة
 ### Dazai Quotes: The Setting Sun & Solitude Chronicles
 
-<p align="center">
-  <img src="public/icons/icon-512x512.png" width="128" height="128" alt="شعار شذرات دازاي" style="border-radius: 24px;" />
-</p>
 
 <p align="center">
   <b>تطبيق أدبي وتجربة هاتف تفاعلية مستوحاة من فلسفة وروايات الأديب الياباني أوسامو دازاي (Osamu Dazai)</b><br/>
@@ -15,7 +12,7 @@
   <img src="https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Capacitor-Mobile-1199EE?style=for-the-badge&logo=capacitor" alt="Capacitor" />
   <img src="https://img.shields.io/badge/Tailwind-CSS%20v4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
-  <img src="https://img.shields.io/badge/Gemini-AI%20Powered-orange?style=for-the-badge&logo=google" alt="Gemini" />
+  <img src="https://img.shields.io/badge/AI-Multiple%20Providers-orange?style=for-the-badge" alt="مزودو ذكاء اصطناعي متعددون" />
 </p>
 
 ---
@@ -71,6 +68,10 @@
 - **الذكاء الاصطناعي**: [@google/genai](https://www.npmjs.com/package/@google/genai)
 - **التخزين المحلي**: LocalStorage للعمل بدون إنترنت (Offline-First)
 
+## 🔐 تنبيه حول مفاتيح AI
+
+في النسخة الحالية تُحفظ مفاتيح مزودي AI في `LocalStorage` وتُستخدم من المتصفح؛ وهذا ليس مخزنًا مشفرًا للأسرار. لا تستخدم مفتاحًا مشتركًا أو واسع الصلاحيات، وقيّد حصته، ولا تنشر التطبيق كخدمة مشتركة قبل نقل استدعاءات المزود إلى خادم آمن.
+
 ---
 
 ## 🚀 تشغيل المشروع محلياً (Quick Start)
@@ -83,10 +84,10 @@
 
 ```bash
 # 1. استنساخ المستودع
-git clone https://github.com/your-username/dazai-quotes.git
+git clone https://github.com/haiderbyte/Shazart-Dazai.git
 
 # 2. الانتقال إلى مجلد المشروع
-cd dazai-quotes
+cd Shazart-Dazai
 
 # 3. تثبيت الاعتماديات
 npm install
@@ -123,7 +124,7 @@ npx cap open android
 ---
 
 ## 📜 الترخيص (License)
-هذا المشروع مفتوح المصدر ومتاح تحت رخصة [MIT License](LICENSE).
+لا يوجد ملف `LICENSE` في المستودع حاليًا؛ لا تفترض وجود ترخيص مفتوح المصدر قبل إضافته.
 
 <p align="center">
   صُنع بكل شغف للأدب وعشاق أوسامو دازاي 🖤
